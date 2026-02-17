@@ -6,6 +6,7 @@
 # --- Terraform (If you use it in this repo) ---
 
 .terraform.lock.hcl  # (Optional: keep if you want version consistency)
+.idea
 
 # --- OS Specific ---
 .DS_Store
