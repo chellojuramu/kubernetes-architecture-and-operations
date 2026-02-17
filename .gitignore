@@ -1,3 +1,21 @@
+# --- Kubernetes & Kind ---
+# Ignore the hidden directory where kind/kubectl store temporary data
+.kube/
+.minikube/
+
+# --- Terraform (If you use it in this repo) ---
+
+.terraform.lock.hcl  # (Optional: keep if you want version consistency)
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+
+# --- Logs & Sensitive Data ---
+*.log
+*.env
+kubeconfig
+
 # Local .terraform directories
 .terraform/
 
