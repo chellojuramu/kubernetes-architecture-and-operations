@@ -1,0 +1,47 @@
+# ==============================================================================
+# KUBERNETES REPLICASET: Nginx Self-Healing Controller
+# Purpose: Ensures a specific number of pod replicas are running at all times.
+# ==============================================================================
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  # Unique name for the ReplicaSet controller
+  name: nginx-rs
+  labels:
+    app: nginx
+    env: demo
+    project: roboshop # Maintaining consistency with our project labels
+
+spec:
+  # 1. SCALING: Defines the desired state (3 pods always running)
+  replicas: 3
+
+  # 2. LABEL SELECTOR: This is the 'glue' that tells the RS which pods to manage.
+  # The RS will look for any pod with the label 'env: demo'.
+  selector:
+    matchLabels:
+      env: demo
+
+  # 3. POD TEMPLATE: The blueprint used to create new pods if one crashes.
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        env: demo         # Must match the selector above!
+        type: frontend
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:latest
+          
+          # 4. RESOURCE GOVERNANCE: Standardizing for production
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+          
+          ports:
+            - containerPort: 80

@@ -1,0 +1,46 @@
+# ==============================================================================
+# KUBERNETES DEPLOYMENT: Nginx Web Server
+# Purpose: Defines the desired state for the Nginx frontend/demo pods.
+# ==============================================================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Unique name for this deployment in the cluster
+  name: nginx-deployment
+  labels:
+    env: demo
+    project: roboshop  # Added project label for better resource filtering
+
+spec:
+  # 1. SCALABILITY: Maintain 3 concurrent pods for high availability
+  replicas: 3
+
+  # 2. SERVICE DISCOVERY: Link the deployment to the pods via labels
+  selector:
+    matchLabels:
+      env: demo
+
+  # 3. POD TEMPLATE: Definition of the actual containers to be launched
+  template:
+    metadata:
+      labels:
+        env: demo
+      name: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.9-alpine  # Best Practice: Explicitly define version tags
+          
+          # 4. RESOURCE MANAGEMENT: Good for production stability
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+
+          # 5. NETWORKING: Expose the standard HTTP port
+          ports:
+            - containerPort: 80
+              name: http
