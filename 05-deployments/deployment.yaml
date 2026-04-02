@@ -1,0 +1,38 @@
+# Deployment: manages and keeps 3 nginx pods always running
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    env: demo    # label on the deployment itself
+    app: nginx
+spec:
+  replicas: 3   # always keep 3 pods running
+  
+  # selector: deployment uses this to find and manage its pods
+  # must match the pod template labels below
+  selector:
+    matchLabels:
+      env: demo
+      app: nginx
+
+  # template: blueprint for each pod that gets created
+  template:
+    metadata:
+      labels:
+        env: demo    # sticker 1 on each pod (service will use this to find pods)
+        app: nginx   # sticker 2 on each pod (service will use this to find pods)
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.25-alpine   # lightweight nginx image
+          ports:
+            - name: http             # naming the port so service can use targetPort: http
+              containerPort: 80      # nginx listens on port 80 inside the container
+          resources:
+            requests:
+              cpu: 100m              # minimum cpu guaranteed to this container
+              memory: 64Mi           # minimum memory guaranteed to this container
+            limits:
+              cpu: 250m              # container cannot use more than this cpu
+              memory: 128Mi          # container cannot use more than this memory

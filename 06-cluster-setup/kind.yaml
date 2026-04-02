@@ -1,0 +1,13 @@
+# Kind Cluster config: creates a local Kubernetes cluster using Docker containers
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane          # master node: manages the cluster
+    extraPortMappings:
+      - containerPort: 30001     # port on the Kind node (Docker container)
+        hostPort: 30001          # port on your laptop (localhost:30001)
+          # this is how NodePort 30001 works on Kind
+        # without this mapping, localhost:30001 won't work
+
+  - role: worker                 # worker node 1: runs your pods
+  - role: worker                 # worker node 2: runs your pods

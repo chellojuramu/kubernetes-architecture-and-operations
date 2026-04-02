@@ -7,6 +7,7 @@
 
 .terraform.lock.hcl  # (Optional: keep if you want version consistency)
 .idea
+notes
 
 # --- OS Specific ---
 .DS_Store

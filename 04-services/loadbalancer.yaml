@@ -1,0 +1,30 @@
+# ClusterIP Service: internal only service, NOT accessible from outside the cluster
+# Use this when other apps/pods inside the cluster need to talk to nginx pods
+# Access from laptop only via: kubectl port-forward svc/cluster-svc 8080:80
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-svc
+  labels:
+    env: demo
+spec:
+  type: LoadBalancer   # default type, internal access only (no need to write type: ClusterIP
+  # explicitly, but good for clarity)
+
+  # selector: service finds pods using these labels
+  # must match pod labels in deployment.yaml template
+  selector:
+    env: demo       # find pods with this label
+    app: nginx      # AND this label (both must match)
+
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80        # service listens on port 80 inside the cluster
+      targetPort: http # forwards to container port named "http" (port 80 in pod)
+
+# Traffic flow (inside cluster):
+# Other Pod → cluster-svc:80 → Pod:80
+
+# Traffic flow (from laptop via port-forward):
+# localhost:8080 → cluster-svc:80 → Pod:80
