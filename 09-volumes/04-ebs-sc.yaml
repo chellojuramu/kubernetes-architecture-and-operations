@@ -1,0 +1,7 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: roboshop-ebs        # name — developer references this in PVC
+provisioner: ebs.csi.aws.com  # use EBS CSI driver to create disks
+volumeBindingMode: WaitForFirstConsumer  # NEW CONCEPT
+reclaimPolicy: Retain        # keep disk when PVC deleted
