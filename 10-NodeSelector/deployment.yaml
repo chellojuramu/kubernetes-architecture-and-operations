@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    env: demo
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      env: demo
+      app: nginx
+  template:
+    metadata:
+      labels:
+        env: demo
+        app: nginx
+    spec:
+      nodeSelector:
+        node-name: arm
+      containers:
+        - name: nginx
+          image: nginx:1.25-alpine
+          ports:
+            - name: http
+              containerPort: 80

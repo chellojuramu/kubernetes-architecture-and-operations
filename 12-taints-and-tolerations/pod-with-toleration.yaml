@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: vip-nginx
+spec:
+  tolerations:
+    - key: "tier"
+      operator: "Equal"
+      value: "gold"
+      effect: "NoSchedule"
+  containers:
+    - name: nginx
+      image: nginx:1.25-alpine
