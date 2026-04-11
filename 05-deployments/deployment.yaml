@@ -7,7 +7,7 @@ metadata:
     env: demo    # label on the deployment itself
     app: nginx
 spec:
-  replicas: 3   # always keep 3 pods running
+  replicas: 4   # always keep 3 pods running
   
   # selector: deployment uses this to find and manage its pods
   # must match the pod template labels below
@@ -36,3 +36,19 @@ spec:
             limits:
               cpu: 250m              # container cannot use more than this cpu
               memory: 128Mi          # container cannot use more than this memory
+
+---
+# Service: load balances traffic to the nginx pods
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  selector:
+    env: demo    # find pods with this label
+    app: nginx   # AND this label
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80               # service listens on port 80 inside the cluster
+      targetPort: http       # forwards to the container port named "http" (port 80)
