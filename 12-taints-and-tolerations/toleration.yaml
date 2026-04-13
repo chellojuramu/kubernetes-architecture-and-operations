@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-tolerated
+  labels:
+    env: test
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  # asking for VIP room
+  nodeSelector:
+    project: roboshop
+  # showing booking confirmation
+  tolerations:
+    - key: "project"
+      operator: "Equal"
+      value: "roboshop"
+      effect: "NoExecute"
