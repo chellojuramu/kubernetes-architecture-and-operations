@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: aws-cli
+  namespace: roboshop
+spec:
+  serviceAccountName: roboshop-secret-reader
+  containers:
+    - name: aws-cli
+      image: aws-cli
