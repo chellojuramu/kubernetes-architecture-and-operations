@@ -8,3 +8,4 @@ spec:
   containers:
     - name: aws-cli
       image: amazon/aws-cli
+      command: ["sleep", "infinity"]
