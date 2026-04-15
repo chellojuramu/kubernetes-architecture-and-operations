@@ -12,6 +12,10 @@ data:
       userarn: arn:aws:iam::717188664763:user/ramu
       username: ramu
     - groups:
+      - roboshop-trainee
+      userarn: arn:aws:iam::717188664763:user/suresh
+      username: suresh
+    - groups:
       - roboshop-admin
       userarn: arn:aws:iam::717188664763:user/chelloju
       username: chelloju
