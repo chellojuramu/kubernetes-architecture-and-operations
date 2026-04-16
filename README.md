@@ -25,6 +25,8 @@ This repository takes you from Kubernetes fundamentals to advanced deployment pa
 ## 📂 Repository Structure
 
 Each folder is a **self-contained learning module** with working manifests. Follow the numbered sequence for the best learning experience.
+
+```
 kubernetes-architecture-and-operations/
 │
 ├── 01-pods/                      # Pod fundamentals, lifecycle, multi-container
@@ -48,6 +50,7 @@ kubernetes-architecture-and-operations/
 │   └── eksctl/                   # EKS OIDC and controller setup
 │
 └── README.md
+```
 ---
 
 ## 🚀 Quick Start
