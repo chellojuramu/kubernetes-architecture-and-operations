@@ -1,0 +1,46 @@
+appVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app1
+  labels:
+    project: roboshop
+    tier: frontend
+    component: app1
+spec:
+  repicas: 2
+  selector:
+    matchLabels:
+      project: roboshop
+      tier: frontend
+      component: app1
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        tier: frontend
+        component: app1
+    spec:
+      containers:
+        - name: app1
+          image: chelloju/app1:1.0.0
+---
+apiversion: v1
+kind: Service
+metadata:
+  name: app1
+spec:
+  selector:
+    project: roboshop
+    tier: frontend
+    component: app1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+apiversion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app1
+  annotations:
