@@ -1,4 +1,4 @@
-appVersion: apps/v1
+apiVersion: apps/v1 # ← Fixed: was "appVersion"
 kind: Deployment
 metadata:
   name: app1
@@ -7,7 +7,7 @@ metadata:
     tier: frontend
     component: app1
 spec:
-  repicas: 2
+  replicas: 2 # ← Fixed: was "repicas"
   selector:
     matchLabels:
       project: roboshop
@@ -24,7 +24,7 @@ spec:
         - name: app1
           image: chelloju/app1:1.0.0
 ---
-apiversion: v1
+apiVersion: v1 # ← Fixed: was "apiversion"
 kind: Service
 metadata:
   name: app1
@@ -37,7 +37,6 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -62,4 +61,4 @@ spec:
               service:
                 name: app1
                 port:
-                  number: 80
+                  number: 80 # ← Fixed indentation
