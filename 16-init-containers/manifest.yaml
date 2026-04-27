@@ -41,7 +41,7 @@ spec:
                 --region us-east-1 \
                 --secret-id /roboshop/dev/mysql_root_password \
                 --query SecretString \
-                --output text > /secrets/mysql-secret-reader.txt
+                --output text | jq -r '."/roboshop/dev/mysql_root_password"' > /secrets/mysql-secret-reader.txt
 
               echo "Secret placed successfully"
 
