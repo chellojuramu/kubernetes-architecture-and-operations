@@ -33,7 +33,7 @@ spec:
             - -c
             - |
               aws secretsmanager get-secret-value --secret-id /roboshop/dev/mysql_root_password \
-              --query SecretString --output text | jq -r .MYSQL_ROOT_PASSWORD > /secrets/mysql-secret-reader.txt
+              --query SecretString --output text | jq -r ./roboshop/dev/mysql_root_password > /secrets/mysql-secret-reader.txt
               echo "Secret placed successfully"
               cat /secrets/mysql-secret-reader.txt # just for verification, should not do actually
           volumeMounts:
